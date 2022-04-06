@@ -134,11 +134,59 @@
 -7 STARS2 0 STARS2 7 STARS2 CR CR
 
 ( Problem 6)
-( n lo-limit hi-limit -- flag)
-: WITHIN ;
+( n lo-limit hi-limit -- flag )
+: WITHIN1   ROT DUP ROT < ROT ROT <= AND ;
+
+( WITHIN2)
+(     1 5 8)
+
+( Over)
+( OVER 1 5 8 5)
+
+( Calculate range)
+( -    1 5 3)
+
+( Push range onto return stack)
+( >R   1 5 [3])
+
+( Subtract lo-limit from number to get difference)
+( -    -4 [3])
+
+( Get range value from return stack)
+( R>   -4 3)
+
+( Compare numbers using U<)
+( U<   0)
+: WITHIN2   OVER -  >R  -  R> U< ;
+
+4 5 8 WITHIN1 . CR
+5 5 8 WITHIN1 . CR
+6 5 8 WITHIN1 . CR
+7 5 8 WITHIN1 . CR
+8 5 8 WITHIN1 . CR
+
+15 STARS2 CR
+
+4 5 8 WITHIN2 . CR
+5 5 8 WITHIN2 . CR
+6 5 8 WITHIN2 . CR
+7 5 8 WITHIN2 . CR
+8 5 8 WITHIN2 . CR
 
 ( Problem 7)
-: GUESS ;
+: GUESS1
+   2DUP = IF  ." CORRECT! " DROP  ELSE
+     2DUP > IF  ." TOO LOW "  ELSE
+       ." TOO HIGH "
+     THEN
+   THEN DROP ;
+   
+: GUESS2
+   2DUP = IF  ." CORRECT! " 2DROP  ELSE
+     OVER < IF  ." TOO LOW "  ELSE
+       ." TOO HIGH "
+     THEN
+   THEN ;
 
 ( Problem 8)
 : SPELLER ;
@@ -146,5 +194,6 @@
 ( Problem 9)
 : TRAP ;
 
+( Comment out to play GUESS game)
 bye
 
