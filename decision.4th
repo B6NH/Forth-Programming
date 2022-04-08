@@ -134,6 +134,7 @@
 -7 STARS2 0 STARS2 7 STARS2 CR CR
 
 ( Problem 6)
+( low-limit <= n < hi-limit)
 ( n lo-limit hi-limit -- flag )
 : WITHIN1   ROT DUP ROT < ROT ROT <= AND ;
 
@@ -159,6 +160,9 @@
 ( U<   0)
 : WITHIN2   OVER -  >R  -  R> U< ;
 
+( low-limit < n < hi-limit)
+: WITHIN3   ROT DUP ROT < ROT ROT < AND ;
+
 4 5 8 WITHIN1 . CR
 5 5 8 WITHIN1 . CR
 6 5 8 WITHIN1 . CR
@@ -172,6 +176,14 @@
 6 5 8 WITHIN2 . CR
 7 5 8 WITHIN2 . CR
 8 5 8 WITHIN2 . CR
+
+15 STARS2 CR
+
+4 5 8 WITHIN3 . CR
+5 5 8 WITHIN3 . CR
+6 5 8 WITHIN3 . CR
+7 5 8 WITHIN3 . CR
+8 5 8 WITHIN3 . CR
 
 ( Problem 7)
 : GUESS1
@@ -189,11 +201,40 @@
    THEN ;
 
 ( Problem 8)
-: SPELLER ;
+: SPELLER
+   DUP ABS 4 > IF  ." OUT OF RANGE "  ELSE
+     DUP 0< IF ." NEGATIVE " ABS  THEN
+     DUP 0= IF  ." ZERO "   ELSE
+        DUP 1 = IF  ." ONE "  ELSE
+          DUP 2 = IF  ." TWO "  ELSE
+            DUP 3 = IF  ." THREE "  ELSE
+              ." FOUR "
+            THEN
+          THEN
+        THEN
+     THEN
+   THEN DROP ;
 
 ( Problem 9)
-: TRAP ;
+: 3DUP   DUP 2OVER ROT ;
+: TRAP1
+   2DUP = IF
+     DROP OVER = IF  ." YOU GOT IT! " DROP  ELSE
+       ." NOT BETWEEN "
+     THEN
+   ELSE
+     3DUP WITHIN3 IF  ." BETWEEN "  ELSE
+       ." NOT BETWEEN "
+     THEN 2DROP
+   THEN ;
+   
+: TRAP2
+   3DUP WITHIN3 IF  ." BETWEEN " 2DROP  ELSE
+     2DUP = ROT ROT = AND IF ." YOU GOT IT! " DROP  ELSE
+       ." NOT BETWEEN "
+     THEN
+   THEN ;
 
-( Comment out to play GUESS game)
+( Comment out to play GUESS and TRAP games or to run SPELLER)
 bye
 
