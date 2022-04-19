@@ -101,7 +101,99 @@ DOUBLING CR
 : FIVES   100 0 DO  I 5 * .  LOOP ;
 FIVES CR
 
+." --- "
+
+( Quit after 20 times or as soon as money has doubled)
+: DOUBLED
+   6 1000
+     21 1 DO
+       CR ." YEAR " I 2 U.R
+       2DUP R% +  DUP ."    BALANCE " .
+       DUP 2000 > IF
+         CR ." more than doubled in "
+         I . ." years " LEAVE
+       THEN
+     LOOP 2DROP ;
+DOUBLED CR
+
+( Clear screen)
+( PAGE)
+
+( Don't show "ok" message)
+( QUIT)
+
+( ---------------------------------------------------)
+
 ." --- " CR
+
+( Problem 1)
+: STARS   0 DO  42 EMIT  LOOP ;
+5 STARS CR
+
+." --- " CR
+
+( Problem 2)
+: BOX
+   0 DO
+     DUP
+     0 DO
+       42 EMIT
+     LOOP
+     CR
+   LOOP DROP ;
+: BOX2
+   0 DO
+     DUP STARS CR
+   LOOP DROP ;
+10 3 BOX
+." --- " CR
+10 3 BOX2
+." --- " CR
+
+( Problem 3)
+: \STARS
+   0 DO
+     I 0> IF
+       I 0 DO  ."  "  LOOP
+     THEN
+     10 STARS CR
+   LOOP ;
+: \STARS2
+   0 DO
+     I SPACES 10 STARS CR
+   LOOP ;
+4 \STARS
+." --- " CR
+4 \STARS2
+." --- " CR
+
+( Problem 4)
+: /STARS
+   DUP
+   0 DO
+     DUP I - 1- SPACES
+     10 STARS CR
+   LOOP DROP ;
+: /STARS2
+   1- 0 SWAP DO
+     I SPACES 10 STARS CR
+   -1 +LOOP ;
+4 /STARS
+." --- " CR
+4 /STARS2
+." --- " CR
+
+( Problem 5)
+: /STARSS ;
+
+( Problem 6)
+: DIAMONDS ;
+
+( Problem 7)
+: DOUBLEDD ;
+
+( Problem 8)
+: ** ;
 
 bye
 
