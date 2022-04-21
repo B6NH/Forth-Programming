@@ -141,10 +141,12 @@ DOUBLED CR
      LOOP
      CR
    LOOP DROP ;
+
 : BOX2
    0 DO
      DUP STARS CR
    LOOP DROP ;
+
 10 3 BOX
 ." --- " CR
 10 3 BOX2
@@ -158,10 +160,12 @@ DOUBLED CR
      THEN
      10 STARS CR
    LOOP ;
+
 : \STARS2
    0 DO
      I SPACES 10 STARS CR
    LOOP ;
+
 4 \STARS
 ." --- " CR
 4 \STARS2
@@ -174,26 +178,132 @@ DOUBLED CR
      DUP I - 1- SPACES
      10 STARS CR
    LOOP DROP ;
+
 : /STARS2
    1- 0 SWAP DO
      I SPACES 10 STARS CR
    -1 +LOOP ;
+
 4 /STARS
 ." --- " CR
 4 /STARS2
 ." --- " CR
 
 ( Problem 5)
-: /STARSS ;
+: /STARSS
+   1- BEGIN
+     DUP SPACES 10 STARS CR
+     1-
+   DUP 0< UNTIL DROP ;
+
+: /STARSS2
+   BEGIN
+     1-
+     DUP SPACES 10 STARS CR
+   DUP 0= UNTIL DROP ;
+
+5 /STARSS
+." --- " CR
+5 /STARSS2
+." --- " CR
 
 ( Problem 6)
-: DIAMONDS ;
+: 2+   2 + ;
+: 2-   2 - ;
+
+( Increment stars)
+: DIAMONDS
+   0
+   DO
+
+     ( Loop from 9 to 0 spaces)
+     -1 0 9 DO
+       I SPACES
+       2+ DUP STARS CR
+     -1 +LOOP
+
+     ( Loop from 0 to 9 spaces)
+     10 0 DO
+       I SPACES
+       DUP STARS 2- CR
+     LOOP DROP
+
+   LOOP ;
+
+( Calculate stars)
+: DIAMONDS2
+   0
+   DO
+
+     0 9 DO
+       I SPACES
+       9 I - 2* 1+ STARS CR
+     -1 +LOOP
+
+     10 0 DO
+       I SPACES
+       9 I - 2* 1+ STARS CR
+     LOOP
+
+   LOOP ;
+
+: TRIANGLE
+   DO
+     9 I - SPACES
+     I 2* 1+ STARS CR
+   DUP +LOOP DROP ;
+
+: DIAMONDS3
+   0
+   DO
+     1 10 0 TRIANGLE
+     -1 0 9 TRIANGLE
+   LOOP ;
+
+3 DIAMONDS
+." --- " CR
+3 DIAMONDS2
+." --- " CR
+3 DIAMONDS3
 
 ( Problem 7)
 : DOUBLEDD ;
 
 ( Problem 8)
-: ** ;
+: **
+   DUP 1 = IF
+     DROP
+   ELSE
+     1- SWAP DUP ROT 0
+     DO
+       OVER *
+     LOOP
+     NIP ( SWAP DROP)
+   THEN ;
+
+: **2
+   1 SWAP ?DUP
+   IF
+     0
+     DO
+       OVER *
+     LOOP
+   THEN
+   NIP ;
+
+." --- " CR
+2 4 ** .
+2 5 ** .
+3 4 ** .
+6 1 ** .
+7 2 ** . CR
+." --- " CR
+2 4 **2 .
+2 5 **2 .
+3 4 **2 .
+6 1 **2 .
+7 2 **2 . CR
+." --- " CR
 
 bye
 
