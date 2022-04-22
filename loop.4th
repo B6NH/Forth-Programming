@@ -265,16 +265,107 @@ DOUBLED CR
 3 DIAMONDS2
 ." --- " CR
 3 DIAMONDS3
+." --- " CR
 
 ( Problem 7)
-: DOUBLEDD ;
+: 3DROP   2DROP DROP ;
+: DOUBLEDD
+
+   ( Calculate limit)
+   DUP 2*
+
+   ( Put year on return stack [interest amount limit])
+   0 >R
+
+   BEGIN
+
+     ( Increment and display year from return stack)
+     R> 1+ DUP ." YEAR " 2 U.R >R
+
+     ( Set order [limit interest amount])
+     ROT ROT
+
+     ( Add interest [limit interest amount])
+     2DUP R% + DUP ."    BALANCE " . CR
+
+     ( Check if amount exceeded limit [interest amount limit])
+     ROT 2DUP >
+
+   UNTIL ." more than doubled in " R> . ." years " CR 3DROP ;
+
+: DOUBLEDD2
+
+   ( Limit)
+   DUP 2*
+
+   21 1 DO
+
+     ." YEAR " I 2 U.R
+
+     ( Same as in previous definition)
+     ROT ROT
+     2DUP R% + DUP ."    BALANCE " . CR
+
+     ROT 2DUP >
+     IF
+       ." more than doubled in " I . ." years " CR LEAVE
+     THEN
+
+   LOOP 3DROP ;
+
+: DOUBLEDD3
+
+   OVER 2*  SWAP ROT ( Set limit [limit interest amount])
+
+   21 1 DO
+
+     ( Display year)
+     ." Year " I 2 .R 3 SPACES
+
+     ( Calculate new amount [limit interest amount amount limit])
+     2DUP R% + DUP  ." Bal " . CR DUP 2OVER DROP
+
+     ( Check limit [limit interest amount])
+     > IF
+      ." More than doubled in "  I .  ." years " CR LEAVE
+     THEN
+
+   LOOP 3DROP ;
+
+6 1000 DOUBLEDD
+." --- " CR
+15 20000 DOUBLEDD
+." --- " CR
+100 100 DOUBLEDD
+." --- " CR
+2 100 DOUBLEDD
+." --- " CR
+
+6 1000 DOUBLEDD2
+." --- " CR
+15 20000 DOUBLEDD2
+." --- " CR
+100 100 DOUBLEDD2
+." --- " CR
+2 100 DOUBLEDD2
+." --- " CR
+
+1000 6 DOUBLEDD3
+." --- " CR
+20000 15 DOUBLEDD3
+." --- " CR
+100 100 DOUBLEDD3
+." --- " CR
+100 2 DOUBLEDD3
+." --- " CR
 
 ( Problem 8)
 : **
    DUP 1 = IF
      DROP
    ELSE
-     1- SWAP DUP ROT 0
+     1- SWAP DUP ROT
+     0
      DO
        OVER *
      LOOP
@@ -291,7 +382,6 @@ DOUBLED CR
    THEN
    NIP ;
 
-." --- " CR
 2 4 ** .
 2 5 ** .
 3 4 ** .
