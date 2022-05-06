@@ -1,4 +1,8 @@
-# Forth-Programming
+# ![Logo](https://i.imgur.com/QS3jDvt.png)
+
+Programs from book "Starting FORTH" by Leo Brodie
+
+## Table of Contents
 
 1. [Fundamental Forth](fundamental.4th)
 2. [How to Get Results](result.4th)
