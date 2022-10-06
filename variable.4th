@@ -95,8 +95,8 @@ RESETARR
    DUP 18 < IF REJECT ELSE
      DUP 21 < IF SMALL ELSE
        DUP 24 < IF MEDIUM ELSE
-         DUP 27 < IF   LARGE       ELSE
-           DUP 30 < IF   EXTRA-LARGE ELSE
+         DUP 27 < IF LARGE ELSE
+           DUP 30 < IF EXTRA-LARGE ELSE
              ERROR
            THEN
          THEN
